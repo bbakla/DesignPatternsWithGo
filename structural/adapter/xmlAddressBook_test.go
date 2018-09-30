@@ -92,5 +92,4 @@ func TestCanGetAllContacts(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.True(t, strings.Contains(contacts, "Laufsteg"))
-
 }
