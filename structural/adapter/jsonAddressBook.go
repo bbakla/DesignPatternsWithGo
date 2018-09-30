@@ -38,5 +38,4 @@ func NewAddreeBookJson() jsonContactList {
 func (contacts jsonContactList) addContact(jsonContact string) (int, error) {
 
 	return 0, nil
-
 }
