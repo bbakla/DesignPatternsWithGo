@@ -9,18 +9,17 @@ import (
 
 type xmlProcessor interface {
 	print()
-	addContact() error
+	addContact(xmlContact string) (int, error)
 	get(id int) string
 	getAll() string
 }
 
 type Contacts struct {
-	XmlName  xml.Name  `xml:"contacts"`
+	// XmlName  xml.Name  `xml:"contacts"`
 	Contacts []Contact `xml:"contact"`
 }
 type Contact struct {
-	XMLName xml.Name `xml:"contact"`
-	Id      int      `xml:id, attr`
+	Id int `xml:"id, attr"`
 	Name
 }
 
@@ -79,7 +78,8 @@ func (xmlAddressBook addressBookInXml) get(id int) (string, error) {
 func (xmlAddressBook addressBookInXml) getAll() (string, error) {
 
 	var contactsAsString strings.Builder
-	// contactsAsString.WriteString("<contacts>")
+	contactsAsString.WriteString("<contacts>")
+	contactsAsString.WriteString("\n")
 
 	for key, _ := range xmlAddressBook.people {
 		contact, _ := xmlAddressBook.get(key)
@@ -87,7 +87,7 @@ func (xmlAddressBook addressBookInXml) getAll() (string, error) {
 		contactsAsString.WriteString("\n")
 	}
 
-	// contactsAsString.WriteString("</contacts>")
+	contactsAsString.WriteString("</contacts>")
 
 	return contactsAsString.String(), nil
 
@@ -95,19 +95,19 @@ func (xmlAddressBook addressBookInXml) getAll() (string, error) {
 
 func (xmlAddressBook addressBookInXml) getAll2() (string, error) {
 
-	// var contactsAsString strings.Builder
-	// // contactsAsString.WriteString("<contacts>")
 	var contacts Contacts
-	contacts.Contacts = make([]Contact, 1)
+	contacts.Contacts = make([]Contact, 0)
 
-	for key, _ := range xmlAddressBook.people {
-		contact, _ := xmlAddressBook.get(key)
-		contactsAsString.WriteString(contact)
-		contactsAsString.WriteString("\n")
+	for _, value := range xmlAddressBook.people {
+		contacts.Contacts = append(contacts.Contacts, value)
 	}
 
-	// contactsAsString.WriteString("</contacts>")
+	contactInString, err := xml.MarshalIndent(contacts, "  ", "    ")
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		return "", err
 
-	return contactsAsString.String(), nil
+	}
+	return string(contactInString), nil
 
 }

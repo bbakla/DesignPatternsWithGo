@@ -88,9 +88,7 @@ func TestCanGetAllContacts(t *testing.T) {
 	addressBook.addContact(data)
 	addressBook.addContact(data2)
 
-	contacts, err := addressBook.getAll()
-
-	fmt.Println(contacts)
+	contacts, err := addressBook.getAll2()
 
 	assert.Nil(t, err)
 	assert.True(t, strings.Contains(contacts, "Laufsteg"))
