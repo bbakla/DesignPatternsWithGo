@@ -9,7 +9,13 @@ import (
 func TestCanAddJsonContact(t *testing.T) {
 	contact := `
 	{
-		"adress": [
+	
+		"id": 0,
+		"name": {
+		  "first": "b",
+		  "last": "d"
+		},
+		"addresses": [
 		  {
 			"country": "GErmany",
 			"city": "Nurnberg"
@@ -18,16 +24,11 @@ func TestCanAddJsonContact(t *testing.T) {
 			"country": "Turkey",
 			"city": "Istanbul"
 		  }
-		],
-		"id": "",
-		"name": {
-		  "first": "b",
-		  "last": "d"
-		}
+		]
 	  }
 	`
 
-	var jsonAddressBook = NewAddreeBookJson()
+	var jsonAddressBook = NewAddressBookJson()
 	id, err := jsonAddressBook.addContact(contact)
 
 	assert.Nil(t, err)
