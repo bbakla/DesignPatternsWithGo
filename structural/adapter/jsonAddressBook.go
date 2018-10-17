@@ -61,13 +61,42 @@ func (contactList jsonContactList) addContact(contactInString string) (int, erro
 
 func (contactList jsonContactList) print() {
 
+	for key, value := range contactList.contactList {
+		fmt.Printf("Id = %d\t name = %s\n", key, value.FirstName+" "+value.LastName)
+	}
+
 }
 func (contactList jsonContactList) get(id int) string {
+	contact := contactList.contactList[id]
 
+	stringFormat, err := json.Marshal(contact)
+
+	if err != nil {
+		return ""
+	}
+
+	return string(stringFormat)
 }
+
 func (contactList jsonContactList) getAll() string {
 
-}
-func (contactList jsonContactList) addAddress(address Address) error {
+	list := make([]jsonContact, 0)
 
+	for _, value := range contactList.contactList {
+		list = append(list, value)
+	}
+
+	result, err := json.Marshal(list)
+	if err != nil {
+		return ""
+	}
+
+	return string(result)
+}
+func (contactList jsonContactList) addAddress(id int, address Address) error {
+
+	addresses := contactList.contactList[id].Addresses
+	addresses = append(addresses, address)
+
+	return nil
 }

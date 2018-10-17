@@ -14,7 +14,7 @@ func TestCanAddContact(t *testing.T) {
 		<Id></Id>
 		<name>
 			<first>BürgerSteig</first>
-			<surname>IstImmerVernünftig</surname>
+			<las>IstImmerVernünftig</last>
 		</name>
 	</contact>`
 

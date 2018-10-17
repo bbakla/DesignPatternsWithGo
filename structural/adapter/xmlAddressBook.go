@@ -19,7 +19,7 @@ type Contacts struct {
 	Contacts []Contact `xml:"contact"`
 }
 type Contact struct {
-	Id int `xml:"id, attr"`
+	Id int `xml:"id"`
 	Name
 }
 
