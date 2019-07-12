@@ -6,7 +6,6 @@ import (
 )
 
 type User struct {
-	Roles  []string
 	Driver Driveable
 }
 
