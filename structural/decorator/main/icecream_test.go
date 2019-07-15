@@ -11,7 +11,6 @@ func TestCanAddBall(t *testing.T) {
 	icecream := &IcecreamDecorator{}
 
 	fmt.Println(icecream.AddBall())
-
 }
 
 func TestCanAddHazelNussToTheIcecream(t *testing.T) {
