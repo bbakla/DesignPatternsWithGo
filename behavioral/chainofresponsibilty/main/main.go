@@ -50,5 +50,4 @@ func main() {
 
 	professor.NextDoctor = closureDoctor
 	practitioner.Next(sympthom)
-
 }
