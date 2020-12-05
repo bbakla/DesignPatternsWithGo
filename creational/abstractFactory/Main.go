@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"github.com/bbakla/DesignPatternsWithGo/creational/abstractFactory"
 )
 
 func main() {
