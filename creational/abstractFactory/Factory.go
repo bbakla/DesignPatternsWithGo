@@ -49,5 +49,4 @@ func (m *MotorbikeFactory) NewVehicle(v int) (Vehicle, error) {
 	default:
 		return nil, errors.New(fmt.Sprintf("Vehicle of type %d is not recognized\n", v))
 	}
-
 }
