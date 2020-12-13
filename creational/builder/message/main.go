@@ -7,14 +7,14 @@ import (
 
 func main() {
 
-	emailBuilder := builder.EmailBuilder{
+	emailBuilder := &builder.EmailBuilder{
 		To:       "bb",
 		Cc:       "",
 		MailText: "test email",
 	}
 
 	director := builder.Director{}
-	message, _ := director.ConstructMessage(&emailBuilder)
+	message, _ := director.ConstructMessage(emailBuilder)
 	fmt.Printf("message is %v\n", message)
 
 }
