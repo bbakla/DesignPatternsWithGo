@@ -1,7 +1,7 @@
-package builder
+package main
 
 import (
-	// "fmt"
+// "fmt"
 )
 
 type ComputerAssembling interface {
@@ -13,12 +13,13 @@ type ComputerAssembling interface {
 }
 
 type Computer struct {
-	Brand string
-	Monitor string
-	Processor string
+	Brand       string
+	Monitor     string
+	Processor   string
 	StorageSize int
 }
 
+// keeping computer instance in the builder struct violates the immutability. It is not a good code practice here.
 type ComputerBuilder struct {
 	computer Computer
 }
@@ -29,17 +30,17 @@ func (c *ComputerBuilder) ChooseMonitor(monitor string) ComputerAssembling {
 	return c
 }
 
-func (c *ComputerBuilder)  ChooseBrand(brand string) ComputerAssembling {
+func (c *ComputerBuilder) ChooseBrand(brand string) ComputerAssembling {
 	c.computer.Brand = brand
 
 	return c
 }
-func (c *ComputerBuilder)  ChooseProcessor(processor string) ComputerAssembling {
+func (c *ComputerBuilder) ChooseProcessor(processor string) ComputerAssembling {
 	c.computer.Processor = processor
 
 	return c
 }
-func (c *ComputerBuilder)  ChooseStorageSize(storageSize int) ComputerAssembling {
+func (c *ComputerBuilder) ChooseStorageSize(storageSize int) ComputerAssembling {
 	c.computer.StorageSize = storageSize
 
 	return c
@@ -48,5 +49,3 @@ func (c *ComputerBuilder)  ChooseStorageSize(storageSize int) ComputerAssembling
 func (c *ComputerBuilder) Build() Computer {
 	return c.computer
 }
-
-
