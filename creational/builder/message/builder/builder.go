@@ -4,7 +4,7 @@ import "fmt"
 
 //Product
 type Message struct {
-	Body        []byte
+	Body        string
 	VoteOptions []string
 	Type        string
 	To          string
@@ -44,7 +44,7 @@ func (e *EmailBuilder) Build() (*Message, error) {
 		To:          e.To,
 		Cc:          e.Cc,
 		Type:        "Email",
-		Body:        []byte(e.MailText),
+		Body:        e.MailText,
 		Secure:      true,
 		VoteOptions: []string{"yes, no"},
 	}, nil
