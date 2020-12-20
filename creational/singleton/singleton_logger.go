@@ -1,12 +1,11 @@
 package singleton
 
 import (
-	. "github.com/logrusorgru/aurora"
-	"fmt"
-	"text/template"
 	"bytes"
+	"fmt"
+	. "github.com/logrusorgru/aurora"
+	"text/template"
 )
-
 
 type Logger interface {
 	Log(Log)
@@ -18,7 +17,7 @@ type logger struct {
 
 type Log struct {
 	LogLevel
-	Message string
+	Message       string
 	CorrelationID int
 }
 
@@ -37,35 +36,33 @@ func (s *logger) Log(log Log) {
 	log.CorrelationID = s.count
 
 	const levelString = "[{{.LogLevel}}]-{{.CorrelationID}}:   {{.Message}}"
-	
+
 	buffer := &bytes.Buffer{}
 	t, err := template.New("t1").Parse(levelString)
 	if err != nil {
 		panic(err)
 	}
 
-
 	t.Execute(buffer, log)
 
-	 switch l := log.LogLevel; l {
+	switch l := log.LogLevel; l {
 
-	 case INFO: 
-		 fmt.Println(Bold(Cyan(buffer.String())))
-	 case DEBUG:
+	case INFO:
+		fmt.Println(Bold(Cyan(buffer.String())))
+	case DEBUG:
 		fmt.Println(Bold(Green(buffer.String())))
-	 case WARN:
+	case WARN:
 		fmt.Println(Bold(Yellow(buffer.String())))
-	 case ERROR:
+	case ERROR:
 		fmt.Println(Bold(Red(buffer.String())))
-	 }
+	}
 }
 
 type LogLevel string
 
 const (
-	INFO LogLevel = "INFO"
+	INFO  LogLevel = "INFO"
 	DEBUG LogLevel = "DEBUG"
-	WARN LogLevel = "WARN"
+	WARN  LogLevel = "WARN"
 	ERROR LogLevel = "ERROR"
 )
-
