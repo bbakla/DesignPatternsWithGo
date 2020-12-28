@@ -1,4 +1,4 @@
-package adapter
+package addressbook
 
 import (
 	"github.com/stretchr/testify/assert"
