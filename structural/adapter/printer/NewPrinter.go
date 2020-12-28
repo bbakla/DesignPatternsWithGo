@@ -1,4 +1,4 @@
-package printer
+package main
 
 //target
 type MewPrinter interface {
