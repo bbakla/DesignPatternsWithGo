@@ -4,25 +4,25 @@ import (
 	"fmt"
 )
 
-type doer interface {
+type Component interface {
 	doIt()
 }
 
-type ZeroInit struct {
+type Leaf struct {
 }
 
-func (zero *ZeroInit) doIt() {
+func (zero *Leaf) doIt() {
 	fmt.Println("doing it")
 }
 
 type Composition struct {
-	zeroInit ZeroInit //direct usage
-	ZeroInit          //embedded usage
-	Closure  func(string)
+	leaf    Leaf //direct usage
+	Leaf         //embedded usage
+	Closure func(string)
 }
 
 type CompositionViaInterface struct {
-	doer
+	Component
 }
 
 func main() {
@@ -31,14 +31,14 @@ func main() {
 	}
 
 	composition.Closure("I am ")
-	composition.zeroInit.doIt() //direct usage
-	composition.doIt()          //embedded usage
+	composition.leaf.doIt() //direct usage
+	composition.doIt()      //embedded usage
 
-	compositionviaInterface := CompositionViaInterface{
-		&ZeroInit{},
+	compositionViaInterface := CompositionViaInterface{
+		&Leaf{},
 	}
 
-	compositionviaInterface.doIt()
+	compositionViaInterface.doIt()
 
 }
 
