@@ -18,7 +18,7 @@ func (zero *ZeroInit) doIt() {
 type Composition struct {
 	zeroInit ZeroInit //direct usage
 	ZeroInit          //embedded usage
-	Closeure func(string)
+	Closure  func(string)
 }
 
 type CompositionViaInterface struct {
@@ -27,10 +27,10 @@ type CompositionViaInterface struct {
 
 func main() {
 	composition := Composition{
-		Closeure: ClosureFunc,
+		Closure: ClosureFunc,
 	}
 
-	composition.Closeure("I am ")
+	composition.Closure("I am ")
 	composition.zeroInit.doIt() //direct usage
 	composition.doIt()          //embedded usage
 

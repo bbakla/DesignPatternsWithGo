@@ -6,24 +6,27 @@ import (
 
 func TestCompositePattern(t *testing.T) {
 
-	stringSensor := &Sensor{
+	stringSensor := Sensor{
+		name: "string sensor",
 		data: "sensor data",
 	}
 
-	floatSensor := &Sensor{
+	floatSensor := Sensor{
+		name: "float sensor",
 		data: 567.34,
 	}
-	sensors := []*Sensor{stringSensor, floatSensor}
+	lamb := LambThing{
+		"lamb_thing",
+		stringSensor,
+	}
+
+	lamb.PublishData()
+
+	sensors := []Thing{stringSensor, floatSensor, lamb}
 
 	car := CarThing{
 		Sensors: sensors,
 	}
-	car.publishData()
-
-	lamb := LambThing{
-		stringSensor,
-	}
-
-	lamb.publishData()
+	car.PublishData()
 
 }
