@@ -6,22 +6,19 @@ import (
 	"fmt"
 )
 
-type BallAdd interface {
+type IceCream interface {
 	AddBall() string
 }
 
-type Icecream struct {
+//Component
+type IceCreamWithCone struct {
 }
 
-// type IcecreamDecorator struct {
-// 	Decorators BallAdd
-// }
-
-func (decorator *Icecream) AddBall() string {
+func (component *IceCreamWithCone) AddBall() string {
 
 	return "icecream with "
 	// var buffer bytes.Buffer
-	// buffer.WriteString("Icecream with\n")
+	// buffer.WriteString("IceCreamWithCone with\n")
 	// for _, d := range decorator.Decorators {
 	// 	buffer.WriteString(d.AddBall())
 	// 	buffer.WriteString("\n")
@@ -31,24 +28,24 @@ func (decorator *Icecream) AddBall() string {
 }
 
 type Gurke struct {
-	Ball BallAdd
+	iceCream IceCream
 }
 
-func (gurke *Gurke) AddBall() string {
-	return gurke.Ball.AddBall() + "Gurke "
+func (gurkeDecorator *Gurke) AddBall() string {
+	return gurkeDecorator.iceCream.AddBall() + "Gurke "
 }
 
 type Hazelnuss struct {
-	Ball BallAdd
+	IceCream
 }
 
 func (hazelnus *Hazelnuss) AddBall() string {
-	return hazelnus.Ball.AddBall() + "Hazelnus "
+	return hazelnus.IceCream.AddBall() + "Hazelnus "
 }
 
 func main() {
 
-	iceCream := &Icecream{}
+	iceCream := &IceCreamWithCone{}
 
 	gurke := &Gurke{iceCream}
 	hazelnuss := &Hazelnuss{gurke}
