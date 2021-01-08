@@ -1,16 +1,16 @@
-package protection
+package protectionProxy
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestCheckIfUserHasAccessToUseTheCar(t *testing.T) {
 	t.Run("Dont have role to drive", func(t *testing.T) {
-		user := &User{
-			Driver: &ProxyDriver{
-				Roles: []string{"passenger"},
+		user := &Client{
+			Driver: &ProxyAuth{
+				Roles:     []string{"passenger"},
+				Driveable: &Car{},
 			},
 		}
 
@@ -21,10 +21,11 @@ func TestCheckIfUserHasAccessToUseTheCar(t *testing.T) {
 	})
 
 	t.Run("Dont have role to drive", func(t *testing.T) {
-		proxyDriver := &ProxyDriver{
-			Roles: []string{"driver"},
+		proxyDriver := &ProxyAuth{
+			Roles:     []string{"driver"},
+			Driveable: &Car{},
 		}
-		user := &User{
+		user := &Client{
 			Driver: proxyDriver,
 		}
 

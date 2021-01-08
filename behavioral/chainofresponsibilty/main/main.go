@@ -7,13 +7,19 @@ import (
 
 func main() {
 
-	professor := chain.ProfessorDoctor{}
-	specilized := chain.SpecializedDoctor{&professor, "eye"}
-	practitioner := chain.Practitioner{&specilized}
+	closureDoctor := &chain.ClosureDoctor{
+		Closure: func(s *chain.Sympthom) {
+			fmt.Printf("Closure Doctor handling the issue: %s -> %s", s.Area, s.Difficulty)
+		},
+	}
+
+	professor := chain.ProfessorDoctor{NextDoctor: closureDoctor}
+	specilized := chain.SpecializedDoctor{NextDoctor: &professor, Area: "eye"}
+	practitioner := chain.Practitioner{NextDoctor: &specilized}
 
 	sympthom := &chain.Sympthom{
 		Area:       "eye",
-		Difficulty: "easy",
+		Difficulty: chain.Difficult,
 	}
 	practitioner.Next(sympthom)
 
@@ -21,7 +27,7 @@ func main() {
 
 	sympthom = &chain.Sympthom{
 		Area:       "eye",
-		Difficulty: "medium",
+		Difficulty: chain.Medium,
 	}
 	practitioner.Next(sympthom)
 
@@ -29,7 +35,7 @@ func main() {
 
 	sympthom = &chain.Sympthom{
 		Area:       "nose",
-		Difficulty: "difficult",
+		Difficulty: chain.Difficult,
 	}
 	practitioner.Next(sympthom)
 
@@ -40,14 +46,8 @@ func main() {
 
 	sympthom = &chain.Sympthom{
 		Area:       "nose",
-		Difficulty: "medium",
-	}
-	closureDoctor := &chain.ClosureDoctor{
-		Closure: func(s *chain.Sympthom) {
-			fmt.Printf("Closure Doctor handling the issue: %s -> %s", s.Area, s.Difficulty)
-		},
+		Difficulty: chain.Medium,
 	}
 
-	professor.NextDoctor = closureDoctor
 	practitioner.Next(sympthom)
 }

@@ -9,9 +9,17 @@ type DoctorChain interface {
 }
 
 type Sympthom struct {
-	Difficulty string
-	Area       string
+	Difficulty
+	Area string
 }
+
+type Difficulty string
+
+const (
+	Difficult Difficulty = "Difficult"
+	Easy      Difficulty = "Easy"
+	Medium    Difficulty = "Medium"
+)
 
 type ClosureDoctor struct {
 	NextDoctor DoctorChain
@@ -29,14 +37,12 @@ type Practitioner struct {
 }
 
 func (p *Practitioner) Next(sympthom *Sympthom) {
-	fmt.Println("Practitioner")
 
-	if sympthom.Difficulty == "easy" {
-		fmt.Println("Practitioner can handle it")
-		return
-	} else {
-		sympthom.Difficulty = "medium"
+	if sympthom.Difficulty == Difficult {
+		fmt.Printf("I am not enough. %s can handle %s problems\n", sympthom.Area, sympthom.Difficulty)
 		p.NextDoctor.Next(sympthom)
+	} else {
+		fmt.Printf("Practitioner can handle %s %s problems\n", sympthom.Difficulty, sympthom.Area)
 	}
 }
 
@@ -46,12 +52,12 @@ type SpecializedDoctor struct {
 }
 
 func (s *SpecializedDoctor) Next(sympthom *Sympthom) {
-	fmt.Println("Specialized")
 	if sympthom.Area == s.Area {
-		fmt.Printf("%s doctor is handling\n", s.Area)
-		return
+		fmt.Printf("%s doctor is handling the issue as it is about %s\n", s.Area, sympthom.Area)
+
 	} else {
-		sympthom.Difficulty = "difficult"
+		fmt.Printf("%s doctor is forwarding too as it is about %s\n", s.Area, sympthom.Area)
+		sympthom.Difficulty = Difficult
 		s.NextDoctor.Next(sympthom)
 	}
 }
@@ -61,12 +67,12 @@ type ProfessorDoctor struct {
 }
 
 func (p *ProfessorDoctor) Next(sympthom *Sympthom) {
-	fmt.Println("Professor")
 
-	if sympthom.Difficulty == "difficult" {
-		fmt.Println("Professor can handle it")
+	if sympthom.Difficulty == Difficult {
+		fmt.Printf("Professor is handling %s\n", sympthom.Area)
 	}
-	if p.NextDoctor != nil {
+	if p.NextDoctor != nil && sympthom.Area == "nose" {
+		fmt.Printf("Professor is also asking to closureDoctor as it is about %s\n", sympthom.Area)
 		p.NextDoctor.Next(sympthom)
 	}
 }
