@@ -15,7 +15,7 @@ type Airbus struct {
 
 func (g *Airbus) RequestArrival() {
 	if g.Mediator.canLand(g) {
-		fmt.Printf("Airbus %s: Landing\n", g.Name)
+		fmt.Printf("Airbus %s: Landing. Requesting arrival permit\n", g.Name)
 	} else {
 		fmt.Printf("Airbus %s: Waiting\n", g.Name)
 	}
@@ -37,17 +37,17 @@ type Boeing struct {
 
 func (g *Boeing) RequestArrival() {
 	if g.Mediator.canLand(g) {
-		fmt.Printf("Boeing737 %s: Landing\n", g.Name)
+		fmt.Printf("Boeing %s: Landing. Requesting arrival permit\n", g.Name)
 	} else {
-		fmt.Printf("Boeing737 %s: Waiting\n", g.Name)
+		fmt.Printf("Boeing %s: Waiting\n", g.Name)
 	}
 }
 
 func (g *Boeing) Departure() {
-	fmt.Printf("Boeing737 %s: Leaving\n", g.Name)
+	fmt.Printf("Boeing %s: Leaving\n", g.Name)
 	g.Mediator.notifyFree()
 }
 
 func (g *Boeing) PermitArrival() {
-	fmt.Printf("Boeing737 %s : Arrival Permitted. Landing\n", g.Name)
+	fmt.Printf("Boeing %s : Arrival Permitted. Landing\n", g.Name)
 }

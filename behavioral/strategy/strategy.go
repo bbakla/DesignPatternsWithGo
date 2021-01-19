@@ -31,7 +31,7 @@ func (fileReader *FileReaderStrategy) GetFilesNameList() []string {
 }
 
 type S3ReaderStrategy struct {
-	password string
+	Password string
 }
 
 func (s3 *S3ReaderStrategy) ReadFile(fileName string) *os.File {
@@ -41,7 +41,7 @@ func (s3 *S3ReaderStrategy) ReadFile(fileName string) *os.File {
 }
 
 func (s3 *S3ReaderStrategy) ReadFiles() {
-	fmt.Println("Reading filesin S3")
+	fmt.Println("Reading files in S3")
 }
 
 func (s3 *S3ReaderStrategy) GetFilesNameList() []string {
