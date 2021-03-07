@@ -14,13 +14,19 @@ type Response struct {
 }
 
 func combineResponses(endpoints []string) (string, error) {
+
+	return withInputChannel(endpoints)
+	//return withWaitingGroups(endpoints)
+}
+
+func withInputChannel(endpoints []string) (string, error) {
 	numberOfRequests := len(endpoints)
 
 	inputChannel := make(chan Response, numberOfRequests)
 	defer close(inputChannel)
 
-	for _, endpoint := range endpoints {
-		go makeHttpRequest(inputChannel, endpoint)
+	for i := 0; i < numberOfRequests; i++ {
+		go makeHttpRequest(inputChannel, endpoints[i])
 	}
 
 	var stringBuilder strings.Builder
@@ -90,5 +96,4 @@ func makeHttpRequest(channel chan Response, endpoint string) {
 	barrierResponse.Response = string(body)
 	fmt.Printf("barrier response %s\n", barrierResponse.Response)
 	channel <- barrierResponse
-
 }
