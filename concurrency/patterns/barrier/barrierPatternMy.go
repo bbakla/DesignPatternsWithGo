@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type Response struct {
@@ -24,6 +25,8 @@ func combineResponses(endpoints []string) (string, error) {
 
 	var stringBuilder strings.Builder
 
+	//Neither select group nor range over the channel worked out.The program somehow didnt exit.
+
 	/*	for {
 		select {
 		case resp := <- inputChannel:
@@ -37,29 +40,29 @@ func combineResponses(endpoints []string) (string, error) {
 		}
 	}*/
 
-	for resp := range inputChannel {
-		//go func() {}()
+	/*		for resp := range inputChannel {
+			//go func() {}()
+			if resp.Error != nil {
+				return "", resp.Error
+			}
+			stringBuilder.WriteString(resp.Response)
+		}*/
+
+	for i := 0; i < numberOfRequests; i++ {
+		resp := <-inputChannel
+
 		if resp.Error != nil {
 			return "", resp.Error
 		}
 		stringBuilder.WriteString(resp.Response)
 	}
 
-	/*for i := 0; i < numberOfRequests; i++ {
-		resp := <- inputChannel
-
-		if resp.Error != nil {
-			return "", resp.Error
-		}
-		stringBuilder.WriteString(resp.Response)
-	}*/
-
 	return stringBuilder.String(), nil
 }
 
 func makeHttpRequest(channel chan Response, endpoint string) {
 	httpClient := http.Client{
-		//	Timeout: time.Duration(timeoutMilliSeconds) * time.Millisecond,
+		Timeout: time.Duration(timeoutMilliSeconds) * time.Millisecond,
 	}
 
 	barrierResponse := Response{}
