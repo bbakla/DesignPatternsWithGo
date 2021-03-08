@@ -1,6 +1,5 @@
 package main
 
-//https://www.youtube.com/watch?v=DqHb5KBe7qI&list=WL&index=182
 import (
 	"errors"
 	"sync"
@@ -10,6 +9,10 @@ var repos = []string{"a", "b", "c", "d"}
 
 func main() {
 
+}
+
+//https://www.youtube.com/watch?v=DqHb5KBe7qI&list=WL&index=182
+func channelsIntroduction() {
 	errors := restore([]string{"a", "afdf", "afdsdfsdfd", "b"})
 
 	println(errors.Error())
