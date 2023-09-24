@@ -15,17 +15,17 @@ type Part2 interface {
 	part2()
 }
 
-type Part1S struct {
+type Part1Impl struct {
 }
 
-func (p *Part1S) part1() {
+func (p *Part1Impl) part1() {
 	fmt.Println("part1")
 }
 
-type Part2S struct {
+type Part2Impl struct {
 }
 
-func (p *Part2S) part2() {
+func (p *Part2Impl) part2() {
 	fmt.Println("part2")
 }
 
@@ -44,8 +44,8 @@ func (t *Template) doIt() {
 func main2() {
 
 	template := &Template{
-		Part1: &Part1S{},
-		Part2: &Part2S{},
+		Part1: &Part1Impl{},
+		Part2: &Part2Impl{},
 	}
 
 	template.doIt()
